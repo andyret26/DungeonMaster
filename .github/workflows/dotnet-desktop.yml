@@ -1,0 +1,25 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - master  # Replace with your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build and run tests
+      run: dotnet test
