@@ -70,6 +70,77 @@ namespace DungeonMaster.Tests
         }
 
         [Fact]
+        public void Equip_ValidWeapon_ShouldEquipWeapon()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            var validWeapon = new Weapon("Void Staff", WeaponType.Staff, 7);
+            string expectedWeaponName = "Void Staff";
+            WeaponType expectedWeaponType = WeaponType.Staff;
+
+            //Act
+            wizard.Equip(validWeapon);
+            Weapon? actuallWeapon = wizard.Equipment[Slot.Weapon] as Weapon;
+            string? actuallWeaponName = actuallWeapon?.Name;
+            WeaponType? actuallWeaponType = actuallWeapon?.Type;
+
+            //Assert
+            Assert.Equal(expectedWeaponName, actuallWeaponName);
+            Assert.Equal(expectedWeaponType, actuallWeaponType);
+            Assert.Equal(validWeapon, actuallWeapon);
+        }
+
+        [Fact]
+        public void Equip_InvalidWeapon_ShouldThrowInvalidWeaponException()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            var invalidWeapon = new Weapon("Void Staff", WeaponType.Mace, 7);
+            string expectedMessage = "Can not equip this type of weapon";
+
+            //Act
+            var exeption = Assert.Throws<InvalidWeaponException>(() =>
+            {
+                wizard.Equip(invalidWeapon);
+            });
+            string actuallMessage = exeption.Message;
+
+            //Assert
+            Assert.Equal(expectedMessage, actuallMessage);
+        }
+
+        [Fact]
+        public void Damage_NoWeapon_CalculateCorrectly()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            decimal expectedDamage = 1 * ((1 + 8) / 100m);
+
+            //Act
+            decimal actuallDamage = wizard.Damage();
+
+            //Assert
+            Assert.Equal(expectedDamage, actuallDamage);
+        }
+
+        [Fact]
+        public void Damage_WithWeapon_CalculateCorrectly()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            var staff = new Weapon("Void Staff", WeaponType.Staff, 7);
+            wizard.Equip(staff);
+
+            decimal expectedDamage = 7 * ((1 + 8) / 100m);
+
+            //Act
+            decimal actuallDamage = wizard.Damage();
+
+            //Assert
+            Assert.Equal(expectedDamage, actuallDamage);
+        }
+
+        [Fact]
         public void Armor_NoEquipment_CalculateArmorCorrectly()
         {
             //Arrange
@@ -78,6 +149,7 @@ namespace DungeonMaster.Tests
             int expectedTotalDex = 1;
             int expectedTotalInt = 8;
             int expectedTotalAttributes = expectedTotalStr + expectedTotalDex + expectedTotalInt;
+
             //Act
             int actuallTtotalStr = wizard.TotalStrength();
             int actuallTtotalDex = wizard.TotalDexterity();
