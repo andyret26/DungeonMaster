@@ -118,7 +118,63 @@ namespace DungeonMaster.Tests
             Assert.Equal(expectedTotalDex, actuallTtotalDex);
             Assert.Equal(expectedTotalInt, actuallTtotalInt);
             Assert.Equal(expectedTotalAttributes, actuallTtotalAttributes);
+        }
 
+        [Fact]
+        public void Armor_TwoPieces_CalculateArmorCorrectly()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            var helmet = new Armor("HelmName", ArmorType.Cloth, Slot.Head, new HeroAttribute(1, 2, 3));
+            var chest = new Armor("Robe", ArmorType.Cloth, Slot.Body, new HeroAttribute(3, 4, 5));
+            wizard.Equip(helmet);
+            wizard.Equip(chest);
+
+            int expectedTotalStr = 5;
+            int expectedTotalDex = 7;
+            int expectedTotalInt = 16;
+            int expectedTotalAttributes = expectedTotalStr + expectedTotalDex + expectedTotalInt;
+
+            //Act
+            int actuallTtotalStr = wizard.TotalStrength();
+            int actuallTtotalDex = wizard.TotalDexterity();
+            int actuallTtotalInt = wizard.TotalIntelligence();
+            int actuallTtotalAttributes = wizard.TotalAttributes();
+
+
+            //Assert
+            Assert.Equal(expectedTotalStr, actuallTtotalStr);
+            Assert.Equal(expectedTotalDex, actuallTtotalDex);
+            Assert.Equal(expectedTotalInt, actuallTtotalInt);
+            Assert.Equal(expectedTotalAttributes, actuallTtotalAttributes);
+        }
+
+        [Fact]
+        public void Armor_RepleacePiece_CalculateArmorCorrectly()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            var helmet = new Armor("HelmName", ArmorType.Cloth, Slot.Head, new HeroAttribute(1, 2, 3));
+            var betterHelmet = new Armor("UltraCap", ArmorType.Cloth, Slot.Head, new HeroAttribute(3, 4, 5));
+            wizard.Equip(betterHelmet);
+
+            int expectedTotalStr = 4;
+            int expectedTotalDex = 5;
+            int expectedTotalInt = 13;
+            int expectedTotalAttributes = expectedTotalStr + expectedTotalDex + expectedTotalInt;
+
+            //Act
+            int actuallTtotalStr = wizard.TotalStrength();
+            int actuallTtotalDex = wizard.TotalDexterity();
+            int actuallTtotalInt = wizard.TotalIntelligence();
+            int actuallTtotalAttributes = wizard.TotalAttributes();
+
+
+            //Assert
+            Assert.Equal(expectedTotalStr, actuallTtotalStr);
+            Assert.Equal(expectedTotalDex, actuallTtotalDex);
+            Assert.Equal(expectedTotalInt, actuallTtotalInt);
+            Assert.Equal(expectedTotalAttributes, actuallTtotalAttributes);
         }
     }
 }
