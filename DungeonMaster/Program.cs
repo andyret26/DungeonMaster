@@ -18,6 +18,10 @@ namespace DungeonMaster
             Console.WriteLine(wizard1.TotalStrength());
 
 
+            double expectedDamage = 1 * ((1 + 8) / 100.0);
+            Console.WriteLine(expectedDamage);
+
+
 
         }
     }

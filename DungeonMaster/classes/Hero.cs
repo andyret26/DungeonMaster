@@ -27,15 +27,11 @@ public abstract class Hero
     }
 
     public abstract void LevelUp();
-    public abstract int Damage();
+    public abstract decimal Damage();
     public abstract void Display();
-    
-    public void Equip(Armor Armor) {
-        Equipment[Armor.Slot] = Armor;
-    }
-    public void Equip(Weapon weapon) {
-        Equipment[Slot.Weapon] = weapon;
-    }
+
+    public abstract void Equip(Armor Armor);
+    public abstract void Equip(Weapon weapon);
 
     /// <summary>
     /// Calculates the total attributes by summing the attributes of the character's level
@@ -70,6 +66,10 @@ public abstract class Hero
         return total;
     }
     
+    /// <summary>
+    /// Calculates the total dexterity based on level attribuete and armor
+    /// </summary>
+    /// <returns>Total dexterity as an int</returns>
     public int TotalDexterity(){
         int total = 0;
         total += LevelAttributes.Dexterity;

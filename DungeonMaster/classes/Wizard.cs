@@ -25,13 +25,35 @@ public class Wizard: Hero
         Level += 1;
         LevelAttributes.IncreaseAttributes(1, 1, 5);
     }
+    public override void Equip(Armor armor)
+    {
+        if(ValidArmorTypes.Contains(armor.Type))
+        {
+            Equipment[armor.Slot] = armor;
+        } else
+        {
+            throw new InvalidArmorException("Can not equip this type of armor");
+        }
+    }
 
-    public override int Damage()
+    public override void Equip(Weapon weapon)
+    {
+        if (ValidWeaponTypes.Contains(weapon.Type))
+        {
+            Equipment[Slot.Weapon] = weapon;
+        }
+        else
+        {
+            throw new InvalidWeaponException("Can not equip this type of weapon");
+        }
+    }
+
+    public override decimal Damage()
     {
         if(Equipment[Slot.Weapon] is Weapon weapon){
-            return weapon.WeaponDamage + LevelAttributes.Intelligence;
+            return weapon.WeaponDamage * ((1 + LevelAttributes.Intelligence) / 100m);
         } else {
-            return LevelAttributes.Intelligence;
+            return 1 * ((1 + LevelAttributes.Intelligence) / 100m);
         }
     }
 
@@ -47,4 +69,5 @@ public class Wizard: Hero
             $"Damage: {Damage()}.\n"
         );
     }
+
 }
