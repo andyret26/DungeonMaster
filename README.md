@@ -1,13 +1,11 @@
 # DungeonMaster
 ## Description
-This is a c# .NET 6 console application where you have variou hero classes that inherits form a base hero class.
+This is a c# .NET 6 console application where you have various hero classes that inherits form a base hero class.
 
 All calsses can level up and have attributes that goes up when you level up.
-
 Attributes increases differently based on the hero class.
 
 Different classes can equip different types of weapons and armor.
-
 When you equip armor the total attributes increase and weapon increases the total damage you can deal.
 
 There is also written various tests for this application.
