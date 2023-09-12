@@ -137,6 +137,36 @@ namespace DungeonMaster.Tests
             Assert.Equal(expectedMessage, actuallMessage);
         }
 
+        [Fact]
+        public void Damage_NoWeapon_CalculateCorrectly()
+        {
+            //Arrange
+            var buckelr = new Swashbuckler("name");
+            decimal expectedDamage = 1 * ((1 + 6) / 100m);
+
+            //Act
+            decimal actuallDamage = buckelr.Damage();
+
+            //Assert
+            Assert.Equal(expectedDamage, actuallDamage);
+        }
+
+        [Fact]
+        public void Damage_WithWeapon_CalculateCorrectly()
+        {
+            //Arrange
+            var buckelr = new Swashbuckler("name");
+            var staff = new Weapon("wName", WeaponType.Sword, 1, 7);
+            buckelr.Equip(staff);
+
+            decimal expectedDamage = 7 * ((1 + 6) / 100m);
+
+            //Act
+            decimal actuallDamage = buckelr.Damage();
+
+            //Assert
+            Assert.Equal(expectedDamage, actuallDamage);
+        }
 
 
     }

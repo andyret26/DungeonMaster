@@ -137,6 +137,36 @@ namespace DungeonMaster.Tests
             Assert.Equal(expectedMessage, actuallMessage);
         }
 
+        [Fact]
+        public void Damage_NoWeapon_CalculateCorrectly()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            decimal expectedDamage = 1 * ((1 + 8) / 100m);
+
+            //Act
+            decimal actuallDamage = wizard.Damage();
+
+            //Assert
+            Assert.Equal(expectedDamage, actuallDamage);
+        }
+
+        [Fact]
+        public void Damage_WithWeapon_CalculateCorrectly()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            var staff = new Weapon("wName", WeaponType.Staff, 1, 7);
+            wizard.Equip(staff);
+
+            decimal expectedDamage = 7 * ((1 + 8) / 100m);
+
+            //Act
+            decimal actuallDamage = wizard.Damage();
+
+            //Assert
+            Assert.Equal(expectedDamage, actuallDamage);
+        }
 
 
     }

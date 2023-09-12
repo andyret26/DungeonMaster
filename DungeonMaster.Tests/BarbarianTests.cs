@@ -137,6 +137,36 @@ namespace DungeonMaster.Tests
             Assert.Equal(expectedMessage, actuallMessage);
         }
 
+        [Fact]
+        public void Damage_NoWeapon_CalculateCorrectly()
+        {
+            //Arrange
+            var barbarian = new Barbarian("name");
+            decimal expectedDamage = 1 * ((1 + 5) / 100m);
+
+            //Act
+            decimal actuallDamage = barbarian.Damage();
+
+            //Assert
+            Assert.Equal(expectedDamage, actuallDamage);
+        }
+
+        [Fact]
+        public void Damage_WithWeapon_CalculateCorrectly()
+        {
+            //Arrange
+            var barbarian = new Barbarian("name");
+            var staff = new Weapon("wName", WeaponType.Sword, 1, 7);
+            barbarian.Equip(staff);
+
+            decimal expectedDamage = 7 * ((1 + 5) / 100m);
+
+            //Act
+            decimal actuallDamage = barbarian.Damage();
+
+            //Assert
+            Assert.Equal(expectedDamage, actuallDamage);
+        }
 
 
     }
