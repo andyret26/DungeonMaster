@@ -110,6 +110,46 @@ namespace DungeonMaster.Tests
         }
 
         [Fact]
+        public void Equip_ValidArmor_ShouldEquipArmor()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            var validArmor = new Armor("FON", ArmorType.Cloth, Slot.Body, new HeroAttribute(1, 1, 2));
+            string expectedArmorName = "FON";
+            ArmorType expectedArmorType = ArmorType.Cloth;
+
+            //Act
+            wizard.Equip(validArmor);
+            Armor? actuallArmor = wizard.Equipment[Slot.Body] as Armor;
+            string? actuallArmorName = actuallArmor?.Name;
+            ArmorType? actuallArmorType = actuallArmor?.Type;
+
+            //Assert
+            Assert.Equal(expectedArmorName, actuallArmorName);
+            Assert.Equal(expectedArmorType, actuallArmorType);
+            Assert.Equal(validArmor, actuallArmor);
+        }
+
+        [Fact]
+        public void Equip_InvalidArmor_ShouldThrowInvalidArmorException()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            var invalidArmor = new Armor("FON", ArmorType.Mail, Slot.Body, new HeroAttribute(1, 1, 2));
+            string expectedMessage = "Can not equip this type of armor";
+
+            //Act
+            var exeption = Assert.Throws<InvalidArmorException>(() =>
+            {
+                wizard.Equip(invalidArmor);
+            });
+            string actuallMessage = exeption.Message;
+
+            //Assert
+            Assert.Equal(expectedMessage, actuallMessage);
+        }
+
+        [Fact]
         public void Damage_NoWeapon_CalculateCorrectly()
         {
             //Arrange
