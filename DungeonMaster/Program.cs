@@ -1,5 +1,5 @@
 ﻿using DungeonMaster.classes;
-using DungeonMaster.enums;
+using DungeonMaster.classes.heroClasses;
 
 namespace DungeonMaster
 {

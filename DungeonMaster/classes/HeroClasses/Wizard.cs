@@ -1,8 +1,6 @@
-﻿using System.Runtime.InteropServices;
-using DungeonMaster.classes;
-using DungeonMaster.enums;
+﻿using DungeonMaster.enums;
 
-namespace DungeonMaster.classes;
+namespace DungeonMaster.classes.heroClasses;
 
 public class Wizard: Hero
 {

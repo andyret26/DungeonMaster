@@ -1,7 +1,6 @@
-﻿using System.Runtime.InteropServices;
-using DungeonMaster.enums;
+﻿using DungeonMaster.enums;
 
-namespace DungeonMaster.classes;
+namespace DungeonMaster.classes.heroClasses;
 
 public abstract class Hero
 {
