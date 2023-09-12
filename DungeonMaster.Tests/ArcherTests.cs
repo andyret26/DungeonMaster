@@ -10,15 +10,15 @@ namespace DungeonMaster.Tests
         public void Create_Archer_Correct_NameLevelAttributes()
         {
             //Arrange
-            var wizard = new Archer("name1");
+            var archer = new Archer("name1");
             string expectedName = "name1";
             int expectedLevel = 1;
-            HeroAttribute expectedLevelAttrbutes = new HeroAttribute(1, 1, 8);
+            HeroAttribute expectedLevelAttrbutes = new HeroAttribute(1, 7, 1);
 
             //Act
-            string actuallName = wizard.Name;
-            int actuallLevel = wizard.Level;
-            HeroAttribute actuallLevelAttrbutes = wizard.LevelAttributes;
+            string actuallName = archer.Name;
+            int actuallLevel = archer.Level;
+            HeroAttribute actuallLevelAttrbutes = archer.LevelAttributes;
 
             //Assert
 
@@ -31,22 +31,22 @@ namespace DungeonMaster.Tests
         public void LevelUp_IncreaseAttributesCorrectly()
         {
             //Arrange
-            var wizard = new Archer("name1");
-            int initialStrength = wizard.LevelAttributes.Strength;
-            int initialDexterity = wizard.LevelAttributes.Dexterity;
-            int initialIntelligence = wizard.LevelAttributes.Intelligence;
-            int initialLevel = wizard.Level;
+            var archer = new Archer("name1");
+            int initialStrength = archer.LevelAttributes.Strength;
+            int initialDexterity = archer.LevelAttributes.Dexterity;
+            int initialIntelligence = archer.LevelAttributes.Intelligence;
+            int initialLevel = archer.Level;
 
             //Act
-            wizard.LevelUp();
-            int actuallStrength = wizard.LevelAttributes.Strength;
-            int actuallDexterity = wizard.LevelAttributes.Dexterity;
-            int actuallIntelligence = wizard.LevelAttributes.Intelligence;
-            int actuallLevel = wizard.Level;
+            archer.LevelUp();
+            int actuallStrength = archer.LevelAttributes.Strength;
+            int actuallDexterity = archer.LevelAttributes.Dexterity;
+            int actuallIntelligence = archer.LevelAttributes.Intelligence;
+            int actuallLevel = archer.Level;
 
             int expectedStrength = initialStrength + 1;
-            int expectedDexterity = initialDexterity + 1;
-            int expectedIntelligence = initialIntelligence + 5;
+            int expectedDexterity = initialDexterity + 5;
+            int expectedIntelligence = initialIntelligence + 1;
             int expectedLevel = initialLevel + 1;
 
             //Assert
@@ -61,14 +61,14 @@ namespace DungeonMaster.Tests
         public void Equip_ValidWeapon_ShouldEquipWeapon()
         {
             //Arrange
-            var wizard = new Archer("name");
-            var validWeapon = new Weapon("Void Staff", WeaponType.Staff, 1, 7);
-            string expectedWeaponName = "Void Staff";
-            WeaponType expectedWeaponType = WeaponType.Staff;
+            var archer = new Archer("name");
+            var validWeapon = new Weapon("Bow", WeaponType.Bow, 1, 7);
+            string expectedWeaponName = "Bow";
+            WeaponType expectedWeaponType = WeaponType.Bow;
 
             //Act
-            wizard.Equip(validWeapon);
-            Weapon? actuallWeapon = wizard.Equipment[Slot.Weapon] as Weapon;
+            archer.Equip(validWeapon);
+            Weapon? actuallWeapon = archer.Equipment[Slot.Weapon] as Weapon;
             string? actuallWeaponName = actuallWeapon?.Name;
             WeaponType? actuallWeaponType = actuallWeapon?.Type;
 
@@ -82,14 +82,14 @@ namespace DungeonMaster.Tests
         public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException()
         {
             //Arrange
-            var wizard = new Archer("name");
-            var invalidWeapon = new Weapon("Void Staff", WeaponType.Mace, 1, 7);
+            var archer = new Archer("name");
+            var invalidWeapon = new Weapon("Void Staff", WeaponType.Staff, 1, 7);
             string expectedMessage = "Can not equip this type of weapon";
 
             //Act
             var exeption = Assert.Throws<InvalidWeaponException>(() =>
             {
-                wizard.Equip(invalidWeapon);
+                archer.Equip(invalidWeapon);
             });
             string actuallMessage = exeption.Message;
 
@@ -101,14 +101,14 @@ namespace DungeonMaster.Tests
         public void Equip_ValidArmor_ShouldEquipArmor()
         {
             //Arrange
-            var wizard = new Archer("name");
-            var validArmor = new Armor("FON", ArmorType.Cloth, 1, Slot.Body, new HeroAttribute(1, 1, 2));
-            string expectedArmorName = "FON";
-            ArmorType expectedArmorType = ArmorType.Cloth;
+            var archer = new Archer("name");
+            var validArmor = new Armor("armorName", ArmorType.Leather, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            string expectedArmorName = "armorName";
+            ArmorType expectedArmorType = ArmorType.Leather;
 
             //Act
-            wizard.Equip(validArmor);
-            Armor? actuallArmor = wizard.Equipment[Slot.Body] as Armor;
+            archer.Equip(validArmor);
+            Armor? actuallArmor = archer.Equipment[Slot.Body] as Armor;
             string? actuallArmorName = actuallArmor?.Name;
             ArmorType? actuallArmorType = actuallArmor?.Type;
 
@@ -122,14 +122,14 @@ namespace DungeonMaster.Tests
         public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException()
         {
             //Arrange
-            var wizard = new Archer("name");
-            var invalidArmor = new Armor("FON", ArmorType.Mail, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            var archer = new Archer("name");
+            var invalidArmor = new Armor("armorName", ArmorType.Plate, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedMessage = "Can not equip this type of armor";
 
             //Act
             var exeption = Assert.Throws<InvalidArmorException>(() =>
             {
-                wizard.Equip(invalidArmor);
+                archer.Equip(invalidArmor);
             });
             string actuallMessage = exeption.Message;
 

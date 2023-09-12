@@ -10,15 +10,15 @@ namespace DungeonMaster.Tests
         public void Create_Swashbuckler_Correct_NameLevelAttributes()
         {
             //Arrange
-            var wizard = new Swashbuckler("name1");
+            var buckler = new Swashbuckler("name1");
             string expectedName = "name1";
             int expectedLevel = 1;
-            HeroAttribute expectedLevelAttrbutes = new HeroAttribute(1, 1, 8);
+            HeroAttribute expectedLevelAttrbutes = new HeroAttribute(2, 6, 1);
 
             //Act
-            string actuallName = wizard.Name;
-            int actuallLevel = wizard.Level;
-            HeroAttribute actuallLevelAttrbutes = wizard.LevelAttributes;
+            string actuallName = buckler.Name;
+            int actuallLevel = buckler.Level;
+            HeroAttribute actuallLevelAttrbutes = buckler.LevelAttributes;
 
             //Assert
 
@@ -31,22 +31,22 @@ namespace DungeonMaster.Tests
         public void LevelUp_IncreaseAttributesCorrectly()
         {
             //Arrange
-            var wizard = new Swashbuckler("name1");
-            int initialStrength = wizard.LevelAttributes.Strength;
-            int initialDexterity = wizard.LevelAttributes.Dexterity;
-            int initialIntelligence = wizard.LevelAttributes.Intelligence;
-            int initialLevel = wizard.Level;
+            var buckler = new Swashbuckler("name1");
+            int initialStrength = buckler.LevelAttributes.Strength;
+            int initialDexterity = buckler.LevelAttributes.Dexterity;
+            int initialIntelligence = buckler.LevelAttributes.Intelligence;
+            int initialLevel = buckler.Level;
 
             //Act
-            wizard.LevelUp();
-            int actuallStrength = wizard.LevelAttributes.Strength;
-            int actuallDexterity = wizard.LevelAttributes.Dexterity;
-            int actuallIntelligence = wizard.LevelAttributes.Intelligence;
-            int actuallLevel = wizard.Level;
+            buckler.LevelUp();
+            int actuallStrength = buckler.LevelAttributes.Strength;
+            int actuallDexterity = buckler.LevelAttributes.Dexterity;
+            int actuallIntelligence = buckler.LevelAttributes.Intelligence;
+            int actuallLevel = buckler.Level;
 
             int expectedStrength = initialStrength + 1;
-            int expectedDexterity = initialDexterity + 1;
-            int expectedIntelligence = initialIntelligence + 5;
+            int expectedDexterity = initialDexterity + 4;
+            int expectedIntelligence = initialIntelligence + 1;
             int expectedLevel = initialLevel + 1;
 
             //Assert
@@ -61,14 +61,14 @@ namespace DungeonMaster.Tests
         public void Equip_ValidWeapon_ShouldEquipWeapon()
         {
             //Arrange
-            var wizard = new Swashbuckler("name");
-            var validWeapon = new Weapon("Void Staff", WeaponType.Staff, 1, 7);
-            string expectedWeaponName = "Void Staff";
-            WeaponType expectedWeaponType = WeaponType.Staff;
+            var buckler = new Swashbuckler("name");
+            var validWeapon = new Weapon("WeaponName", WeaponType.Dagger, 1, 7);
+            string expectedWeaponName = "WeaponName";
+            WeaponType expectedWeaponType = WeaponType.Dagger;
 
             //Act
-            wizard.Equip(validWeapon);
-            Weapon? actuallWeapon = wizard.Equipment[Slot.Weapon] as Weapon;
+            buckler.Equip(validWeapon);
+            Weapon? actuallWeapon = buckler.Equipment[Slot.Weapon] as Weapon;
             string? actuallWeaponName = actuallWeapon?.Name;
             WeaponType? actuallWeaponType = actuallWeapon?.Type;
 
@@ -82,14 +82,14 @@ namespace DungeonMaster.Tests
         public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException()
         {
             //Arrange
-            var wizard = new Swashbuckler("name");
-            var invalidWeapon = new Weapon("Void Staff", WeaponType.Mace, 1, 7);
+            var buckler = new Swashbuckler("name");
+            var invalidWeapon = new Weapon("WeaponName", WeaponType.Mace, 1, 7);
             string expectedMessage = "Can not equip this type of weapon";
 
             //Act
             var exeption = Assert.Throws<InvalidWeaponException>(() =>
             {
-                wizard.Equip(invalidWeapon);
+                buckler.Equip(invalidWeapon);
             });
             string actuallMessage = exeption.Message;
 
@@ -101,14 +101,14 @@ namespace DungeonMaster.Tests
         public void Equip_ValidArmor_ShouldEquipArmor()
         {
             //Arrange
-            var wizard = new Swashbuckler("name");
-            var validArmor = new Armor("FON", ArmorType.Cloth, 1, Slot.Body, new HeroAttribute(1, 1, 2));
-            string expectedArmorName = "FON";
-            ArmorType expectedArmorType = ArmorType.Cloth;
+            var buckler = new Swashbuckler("name");
+            var validArmor = new Armor("ArmorName", ArmorType.Mail, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            string expectedArmorName = "ArmorName";
+            ArmorType expectedArmorType = ArmorType.Mail;
 
             //Act
-            wizard.Equip(validArmor);
-            Armor? actuallArmor = wizard.Equipment[Slot.Body] as Armor;
+            buckler.Equip(validArmor);
+            Armor? actuallArmor = buckler.Equipment[Slot.Body] as Armor;
             string? actuallArmorName = actuallArmor?.Name;
             ArmorType? actuallArmorType = actuallArmor?.Type;
 
@@ -122,14 +122,14 @@ namespace DungeonMaster.Tests
         public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException()
         {
             //Arrange
-            var wizard = new Swashbuckler("name");
-            var invalidArmor = new Armor("FON", ArmorType.Mail, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            var buckler = new Swashbuckler("name");
+            var invalidArmor = new Armor("FON", ArmorType.Cloth, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedMessage = "Can not equip this type of armor";
 
             //Act
             var exeption = Assert.Throws<InvalidArmorException>(() =>
             {
-                wizard.Equip(invalidArmor);
+                buckler.Equip(invalidArmor);
             });
             string actuallMessage = exeption.Message;
 
