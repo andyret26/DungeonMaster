@@ -57,14 +57,15 @@ namespace DungeonMaster.Tests
 
         }
 
-        [Fact]
-        public void Equip_ValidWeapon_ShouldEquipWeapon()
+        [Theory]
+        [InlineData(WeaponType.Bow)]
+        public void Equip_ValidWeapon_ShouldEquipWeapon(WeaponType weaponType)
         {
             //Arrange
             var archer = new Archer("name");
-            var validWeapon = new Weapon("Bow", WeaponType.Bow, 1, 7);
+            var validWeapon = new Weapon("Bow", weaponType, 1, 7);
             string expectedWeaponName = "Bow";
-            WeaponType expectedWeaponType = WeaponType.Bow;
+            WeaponType expectedWeaponType = weaponType;
 
             //Act
             archer.Equip(validWeapon);
@@ -78,12 +79,18 @@ namespace DungeonMaster.Tests
             Assert.Equal(validWeapon, actuallWeapon);
         }
 
-        [Fact]
-        public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException()
+        [Theory]
+        [InlineData(WeaponType.Staff)]
+        [InlineData(WeaponType.Wand)]
+        [InlineData(WeaponType.Dagger)]
+        [InlineData(WeaponType.Sword)]
+        [InlineData(WeaponType.Hatchet)]
+        [InlineData(WeaponType.Mace)]
+        public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException(WeaponType weaponType)
         {
             //Arrange
             var archer = new Archer("name");
-            var invalidWeapon = new Weapon("Void Staff", WeaponType.Staff, 1, 7);
+            var invalidWeapon = new Weapon("Void Staff", weaponType, 1, 7);
             string expectedMessage = "Can not equip this type of weapon";
 
             //Act
@@ -97,14 +104,16 @@ namespace DungeonMaster.Tests
             Assert.Equal(expectedMessage, actuallMessage);
         }
 
-        [Fact]
-        public void Equip_ValidArmor_ShouldEquipArmor()
+        [Theory]
+        [InlineData(ArmorType.Leather)]
+        [InlineData(ArmorType.Mail)]
+        public void Equip_ValidArmor_ShouldEquipArmor(ArmorType armorType)
         {
             //Arrange
             var archer = new Archer("name");
-            var validArmor = new Armor("armorName", ArmorType.Leather, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            var validArmor = new Armor("armorName", armorType, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedArmorName = "armorName";
-            ArmorType expectedArmorType = ArmorType.Leather;
+            ArmorType expectedArmorType = armorType;
 
             //Act
             archer.Equip(validArmor);
@@ -118,12 +127,14 @@ namespace DungeonMaster.Tests
             Assert.Equal(validArmor, actuallArmor);
         }
 
-        [Fact]
-        public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException()
+        [Theory]
+        [InlineData(ArmorType.Cloth)]
+        [InlineData(ArmorType.Plate)]
+        public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException(ArmorType armorType)
         {
             //Arrange
             var archer = new Archer("name");
-            var invalidArmor = new Armor("armorName", ArmorType.Plate, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            var invalidArmor = new Armor("armorName", armorType, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedMessage = "Can not equip this type of armor";
 
             //Act

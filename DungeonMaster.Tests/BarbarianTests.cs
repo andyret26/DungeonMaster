@@ -57,14 +57,17 @@ namespace DungeonMaster.Tests
 
         }
 
-        [Fact]
-        public void Equip_ValidWeapon_ShouldEquipWeapon()
+        [Theory]
+        [InlineData(WeaponType.Hatchet)]
+        [InlineData(WeaponType.Mace)]
+        [InlineData(WeaponType.Sword)]
+        public void Equip_ValidWeapon_ShouldEquipWeapon(WeaponType weaponType)
         {
             //Arrange
             var barbarian = new Barbarian("name");
-            var validWeapon = new Weapon("Sword", WeaponType.Sword, 1, 7);
+            var validWeapon = new Weapon("Sword", weaponType, 1, 7);
             string expectedWeaponName = "Sword";
-            WeaponType expectedWeaponType = WeaponType.Sword;
+            WeaponType expectedWeaponType = weaponType;
 
             //Act
             barbarian.Equip(validWeapon);
@@ -78,12 +81,16 @@ namespace DungeonMaster.Tests
             Assert.Equal(validWeapon, actuallWeapon);
         }
 
-        [Fact]
-        public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException()
+        [Theory]
+        [InlineData(WeaponType.Wand)]
+        [InlineData(WeaponType.Staff)]
+        [InlineData(WeaponType.Dagger)]
+        [InlineData(WeaponType.Bow)]
+        public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException(WeaponType weaponType)
         {
             //Arrange
             var barbarian = new Barbarian("name");
-            var invalidWeapon = new Weapon("Bow", WeaponType.Bow, 1, 7);
+            var invalidWeapon = new Weapon("Bow", weaponType, 1, 7);
             string expectedMessage = "Can not equip this type of weapon";
 
             //Act
@@ -97,14 +104,16 @@ namespace DungeonMaster.Tests
             Assert.Equal(expectedMessage, actuallMessage);
         }
 
-        [Fact]
-        public void Equip_ValidArmor_ShouldEquipArmor()
+        [Theory]
+        [InlineData(ArmorType.Mail)]
+        [InlineData(ArmorType.Plate)]
+        public void Equip_ValidArmor_ShouldEquipArmor(ArmorType armorType)
         {
             //Arrange
             var barbarian = new Barbarian("name");
-            var validArmor = new Armor("ArmorName", ArmorType.Plate, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            var validArmor = new Armor("ArmorName", armorType, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedArmorName = "ArmorName";
-            ArmorType expectedArmorType = ArmorType.Plate;
+            ArmorType expectedArmorType = armorType;
 
             //Act
             barbarian.Equip(validArmor);
@@ -118,12 +127,14 @@ namespace DungeonMaster.Tests
             Assert.Equal(validArmor, actuallArmor);
         }
 
-        [Fact]
-        public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException()
+        [Theory]
+        [InlineData(ArmorType.Cloth)]
+        [InlineData(ArmorType.Leather)]
+        public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException(ArmorType armorType)
         {
             //Arrange
             var barbarian = new Barbarian("name");
-            var invalidArmor = new Armor("FON", ArmorType.Cloth, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            var invalidArmor = new Armor("FON", armorType, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedMessage = "Can not equip this type of armor";
 
             //Act
