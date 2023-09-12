@@ -8,7 +8,7 @@ public class Armor : Item
     public HeroAttribute ArmorAttribute { get; set; }    
     
     
-    public Armor(string name, ArmorType type, Slot slot, HeroAttribute armorAttribute) : base(name) {
+    public Armor(string name, ArmorType type, int requiredLevel, Slot slot, HeroAttribute armorAttribute) : base(name, requiredLevel) {
         Type = type;
         Slot = slot;
         ArmorAttribute = armorAttribute;

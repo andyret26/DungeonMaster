@@ -8,8 +8,9 @@ public class Item
     public int RequiredLevel { get; set; }
     public Slot Slot { get; set; }
     
-    public Item(string name) {
+    public Item(string name, int requiredLevel) {
         Name = name;
+        RequiredLevel = requiredLevel;
     }
     
     

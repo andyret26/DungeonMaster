@@ -74,7 +74,7 @@ namespace DungeonMaster.Tests
         {
             //Arrange
             var wizard = new Wizard("name");
-            var validWeapon = new Weapon("Void Staff", WeaponType.Staff, 7);
+            var validWeapon = new Weapon("Void Staff", WeaponType.Staff, 1, 7);
             string expectedWeaponName = "Void Staff";
             WeaponType expectedWeaponType = WeaponType.Staff;
 
@@ -95,7 +95,7 @@ namespace DungeonMaster.Tests
         {
             //Arrange
             var wizard = new Wizard("name");
-            var invalidWeapon = new Weapon("Void Staff", WeaponType.Mace, 7);
+            var invalidWeapon = new Weapon("Void Staff", WeaponType.Mace, 2, 7);
             string expectedMessage = "Can not equip this type of weapon";
 
             //Act
@@ -114,7 +114,7 @@ namespace DungeonMaster.Tests
         {
             //Arrange
             var wizard = new Wizard("name");
-            var validArmor = new Armor("FON", ArmorType.Cloth, Slot.Body, new HeroAttribute(1, 1, 2));
+            var validArmor = new Armor("FON", ArmorType.Cloth, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedArmorName = "FON";
             ArmorType expectedArmorType = ArmorType.Cloth;
 
@@ -135,7 +135,7 @@ namespace DungeonMaster.Tests
         {
             //Arrange
             var wizard = new Wizard("name");
-            var invalidArmor = new Armor("FON", ArmorType.Mail, Slot.Body, new HeroAttribute(1, 1, 2));
+            var invalidArmor = new Armor("FON", ArmorType.Mail, 2, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedMessage = "Can not equip this type of armor";
 
             //Act
@@ -168,7 +168,7 @@ namespace DungeonMaster.Tests
         {
             //Arrange
             var wizard = new Wizard("name");
-            var staff = new Weapon("Void Staff", WeaponType.Staff, 7);
+            var staff = new Weapon("Void Staff", WeaponType.Staff, 1, 7);
             wizard.Equip(staff);
 
             decimal expectedDamage = 7 * ((1 + 8) / 100m);
@@ -210,7 +210,7 @@ namespace DungeonMaster.Tests
         {
             //Arrange
             var wizard = new Wizard("name");
-            var helmet = new Armor("HelmName", ArmorType.Cloth, Slot.Head, new HeroAttribute(1, 2, 3));
+            var helmet = new Armor("HelmName", ArmorType.Cloth, 1, Slot.Head, new HeroAttribute(1, 2, 3));
             wizard.Equip(helmet);
 
             int expectedTotalStr = 2;
@@ -237,8 +237,8 @@ namespace DungeonMaster.Tests
         {
             //Arrange
             var wizard = new Wizard("name");
-            var helmet = new Armor("HelmName", ArmorType.Cloth, Slot.Head, new HeroAttribute(1, 2, 3));
-            var chest = new Armor("Robe", ArmorType.Cloth, Slot.Body, new HeroAttribute(3, 4, 5));
+            var helmet = new Armor("HelmName", ArmorType.Cloth, 1, Slot.Head, new HeroAttribute(1, 2, 3));
+            var chest = new Armor("Robe", ArmorType.Cloth, 1, Slot.Body, new HeroAttribute(3, 4, 5));
             wizard.Equip(helmet);
             wizard.Equip(chest);
 
@@ -266,8 +266,8 @@ namespace DungeonMaster.Tests
         {
             //Arrange
             var wizard = new Wizard("name");
-            var helmet = new Armor("HelmName", ArmorType.Cloth, Slot.Head, new HeroAttribute(1, 2, 3));
-            var betterHelmet = new Armor("UltraCap", ArmorType.Cloth, Slot.Head, new HeroAttribute(3, 4, 5));
+            var helmet = new Armor("HelmName", ArmorType.Cloth, 1, Slot.Head, new HeroAttribute(1, 2, 3));
+            var betterHelmet = new Armor("UltraCap", ArmorType.Cloth, 1, Slot.Head, new HeroAttribute(3, 4, 5));
             wizard.Equip(betterHelmet);
 
             int expectedTotalStr = 4;
