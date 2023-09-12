@@ -27,6 +27,11 @@ public class Wizard: Hero
     }
     public override void Equip(Armor armor)
     {
+        if(armor.RequiredLevel > Level)
+        {
+            throw new InvalidLevelException("Not high enough level for this item");
+        }
+
         if(ValidArmorTypes.Contains(armor.Type))
         {
             Equipment[armor.Slot] = armor;
@@ -38,6 +43,11 @@ public class Wizard: Hero
 
     public override void Equip(Weapon weapon)
     {
+        if (weapon.RequiredLevel > Level)
+        {
+            throw new InvalidLevelException("Not high enough level for this item");
+        }
+
         if (ValidWeaponTypes.Contains(weapon.Type))
         {
             Equipment[Slot.Weapon] = weapon;

@@ -91,11 +91,11 @@ namespace DungeonMaster.Tests
         }
 
         [Fact]
-        public void Equip_InvalidWeapon_ShouldThrowInvalidWeaponException()
+        public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException()
         {
             //Arrange
             var wizard = new Wizard("name");
-            var invalidWeapon = new Weapon("Void Staff", WeaponType.Mace, 2, 7);
+            var invalidWeapon = new Weapon("Void Staff", WeaponType.Mace, 1, 7);
             string expectedMessage = "Can not equip this type of weapon";
 
             //Act
@@ -131,11 +131,11 @@ namespace DungeonMaster.Tests
         }
 
         [Fact]
-        public void Equip_InvalidArmor_ShouldThrowInvalidArmorException()
+        public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException()
         {
             //Arrange
             var wizard = new Wizard("name");
-            var invalidArmor = new Armor("FON", ArmorType.Mail, 2, Slot.Body, new HeroAttribute(1, 1, 2));
+            var invalidArmor = new Armor("FON", ArmorType.Mail, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedMessage = "Can not equip this type of armor";
 
             //Act
@@ -287,6 +287,44 @@ namespace DungeonMaster.Tests
             Assert.Equal(expectedTotalDex, actuallTtotalDex);
             Assert.Equal(expectedTotalInt, actuallTtotalInt);
             Assert.Equal(expectedTotalAttributes, actuallTtotalAttributes);
+        }
+
+        [Fact]
+        public void Equip_InvalidArmorLevel_ShouldThrowInvalidLevelException()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            var invalidArmor = new Armor("FON", ArmorType.Cloth, 2, Slot.Body, new HeroAttribute(1, 1, 2));
+            string expectedMessage = "Not high enough level for this item";
+
+            //Act
+            var exeption = Assert.Throws<InvalidLevelException>(() =>
+            {
+                wizard.Equip(invalidArmor);
+            });
+            string actuallMessage = exeption.Message;
+
+            //Assert
+            Assert.Equal(expectedMessage, actuallMessage);
+        }
+
+        [Fact]
+        public void Equip_InvalidWeaponLevel_ShouldThrowInvalidLevelException()
+        {
+            //Arrange
+            var wizard = new Wizard("name");
+            var invalidWeapon = new Weapon("FON", WeaponType.Staff, 2, 7);
+            string expectedMessage = "Not high enough level for this item";
+
+            //Act
+            var exeption = Assert.Throws<InvalidLevelException>(() =>
+            {
+                wizard.Equip(invalidWeapon);
+            });
+            string actuallMessage = exeption.Message;
+
+            //Assert
+            Assert.Equal(expectedMessage, actuallMessage);
         }
     }
 }

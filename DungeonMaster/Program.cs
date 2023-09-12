@@ -7,8 +7,8 @@ namespace DungeonMaster
     {
         static void Main(string[] args)
         {
-            Armor head1 = new Armor("HelmName", enums.ArmorType.Cloth, enums.Slot.Head, new HeroAttribute(1, 1, 1));
-            Weapon staff1 = new Weapon("StaffName", enums.WeaponType.Staff, 13);
+            Armor head1 = new Armor("HelmName", enums.ArmorType.Cloth, 1, enums.Slot.Head, new HeroAttribute(1, 1, 1));
+            Weapon staff1 = new Weapon("StaffName", enums.WeaponType.Staff, 1, 13);
             Console.WriteLine("Hello, Hero!");
             Wizard wizard1 = new Wizard("Andy");
             wizard1.Equip(head1);
