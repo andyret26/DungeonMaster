@@ -25,11 +25,36 @@ public abstract class Hero
         };
     }
 
+    /// <summary>
+    /// Level up the hero and increases the attributes.<br/>
+    /// Different classes have different attributes increases
+    /// </summary>
     public abstract void LevelUp();
+
+    /// <summary>
+    /// Calculates how much damage you deal. <br/>
+    /// Different Classes deals damage based on different attributes
+    /// </summary>
+    /// <returns>Damage as a decimal</returns>
     public abstract decimal Damage();
+
+    /// <summary>
+    /// Writes the hero information in the console
+    /// </summary>
     public abstract void Display();
 
+    /// <summary>
+    /// Equips an armor piece. <br/>
+    /// Different class can equip different types of armor
+    /// </summary>
+    /// <param name="Armor">Armor you want to equip</param>
     public abstract void Equip(Armor Armor);
+
+    /// <summary>
+    /// Equips a Weapon piece. <br/>
+    /// Different class can equip different types of armor
+    /// </summary>
+    /// <param name="weapon">Weapon you want to equip</param>
     public abstract void Equip(Weapon weapon);
 
     /// <summary>
@@ -52,6 +77,10 @@ public abstract class Hero
         return total;
     }
 
+    /// <summary>
+    /// Calculates total strength attribute based on level and armor
+    /// </summary>
+    /// <returns>Total strength attribute as an integer</returns>
     public int TotalStrength(){
         int total = 0;
         total += LevelAttributes.Strength;
@@ -68,7 +97,7 @@ public abstract class Hero
     /// <summary>
     /// Calculates the total dexterity based on level attribuete and armor
     /// </summary>
-    /// <returns>Total dexterity as an int</returns>
+    /// <returns>Total dexterity as an integer</returns>
     public int TotalDexterity(){
         int total = 0;
         total += LevelAttributes.Dexterity;
@@ -82,6 +111,10 @@ public abstract class Hero
         return total;
     }
 
+    /// <summary>
+    /// Calculates total intelligence attribute based on level and armor
+    /// </summary>
+    /// <returns>Total intelligence attribute as an integer</returns>
     public int TotalIntelligence(){
         int total = 0;
         total += LevelAttributes.Intelligence;
