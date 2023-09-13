@@ -57,14 +57,17 @@ namespace DungeonMaster.Tests
 
         }
 
-        [Fact]
-        public void Equip_ValidWeapon_ShouldEquipWeapon()
+        [Theory]
+        [InlineData(WeaponType.Dagger)]
+        [InlineData(WeaponType.Sword)]
+
+        public void Equip_ValidWeapon_ShouldEquipWeapon(WeaponType weaponType)
         {
             //Arrange
             var buckler = new Swashbuckler("name");
-            var validWeapon = new Weapon("WeaponName", WeaponType.Dagger, 1, 7);
+            var validWeapon = new Weapon("WeaponName", weaponType, 1, 7);
             string expectedWeaponName = "WeaponName";
-            WeaponType expectedWeaponType = WeaponType.Dagger;
+            WeaponType expectedWeaponType = weaponType;
 
             //Act
             buckler.Equip(validWeapon);
@@ -78,12 +81,17 @@ namespace DungeonMaster.Tests
             Assert.Equal(validWeapon, actuallWeapon);
         }
 
-        [Fact]
-        public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException()
+        [Theory]
+        [InlineData(WeaponType.Staff)]
+        [InlineData(WeaponType.Wand)]
+        [InlineData(WeaponType.Hatchet)]
+        [InlineData(WeaponType.Mace)]
+        [InlineData(WeaponType.Bow)]
+        public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException(WeaponType weaponType)
         {
             //Arrange
             var buckler = new Swashbuckler("name");
-            var invalidWeapon = new Weapon("WeaponName", WeaponType.Mace, 1, 7);
+            var invalidWeapon = new Weapon("WeaponName", weaponType, 1, 7);
             string expectedMessage = "Can not equip this type of weapon";
 
             //Act
@@ -97,14 +105,16 @@ namespace DungeonMaster.Tests
             Assert.Equal(expectedMessage, actuallMessage);
         }
 
-        [Fact]
-        public void Equip_ValidArmor_ShouldEquipArmor()
+        [Theory]
+        [InlineData(ArmorType.Mail)]
+        [InlineData(ArmorType.Leather)]
+        public void Equip_ValidArmor_ShouldEquipArmor(ArmorType armorType)
         {
             //Arrange
             var buckler = new Swashbuckler("name");
-            var validArmor = new Armor("ArmorName", ArmorType.Mail, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            var validArmor = new Armor("ArmorName", armorType, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedArmorName = "ArmorName";
-            ArmorType expectedArmorType = ArmorType.Mail;
+            ArmorType expectedArmorType = armorType;
 
             //Act
             buckler.Equip(validArmor);
@@ -118,12 +128,14 @@ namespace DungeonMaster.Tests
             Assert.Equal(validArmor, actuallArmor);
         }
 
-        [Fact]
-        public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException()
+        [Theory]
+        [InlineData(ArmorType.Plate)]
+        [InlineData(ArmorType.Cloth)]
+        public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException(ArmorType armorType)
         {
             //Arrange
             var buckler = new Swashbuckler("name");
-            var invalidArmor = new Armor("FON", ArmorType.Cloth, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            var invalidArmor = new Armor("FON", armorType, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedMessage = "Can not equip this type of armor";
 
             //Act

@@ -57,14 +57,16 @@ namespace DungeonMaster.Tests
 
         }
 
-        [Fact]
-        public void Equip_ValidWeapon_ShouldEquipWeapon()
+        [Theory]
+        [InlineData(WeaponType.Staff)]
+        [InlineData(WeaponType.Wand)]
+        public void Equip_ValidWeapon_ShouldEquipWeapon(WeaponType weaponType)
         {
             //Arrange
             var wizard = new Wizard("name");
-            var validWeapon = new Weapon("Void Staff", WeaponType.Staff, 1, 7);
+            var validWeapon = new Weapon("Void Staff", weaponType, 1, 7);
             string expectedWeaponName = "Void Staff";
-            WeaponType expectedWeaponType = WeaponType.Staff;
+            WeaponType expectedWeaponType = weaponType;
 
             //Act
             wizard.Equip(validWeapon);
@@ -78,12 +80,17 @@ namespace DungeonMaster.Tests
             Assert.Equal(validWeapon, actuallWeapon);
         }
 
-        [Fact]
-        public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException()
+        [Theory]
+        [InlineData(WeaponType.Bow)]
+        [InlineData(WeaponType.Dagger)]
+        [InlineData(WeaponType.Sword)]
+        [InlineData(WeaponType.Hatchet)]
+        [InlineData(WeaponType.Mace)]
+        public void Equip_InvalidWeaponType_ShouldThrowInvalidWeaponException(WeaponType weaponType)
         {
             //Arrange
             var wizard = new Wizard("name");
-            var invalidWeapon = new Weapon("Void Staff", WeaponType.Mace, 1, 7);
+            var invalidWeapon = new Weapon("Void Staff", weaponType, 1, 7);
             string expectedMessage = "Can not equip this type of weapon";
 
             //Act
@@ -97,14 +104,15 @@ namespace DungeonMaster.Tests
             Assert.Equal(expectedMessage, actuallMessage);
         }
 
-        [Fact]
-        public void Equip_ValidArmor_ShouldEquipArmor()
+        [Theory]
+        [InlineData(ArmorType.Cloth)]
+        public void Equip_ValidArmor_ShouldEquipArmor(ArmorType armorType)
         {
             //Arrange
             var wizard = new Wizard("name");
-            var validArmor = new Armor("FON", ArmorType.Cloth, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            var validArmor = new Armor("FON", armorType, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedArmorName = "FON";
-            ArmorType expectedArmorType = ArmorType.Cloth;
+            ArmorType expectedArmorType = armorType;
 
             //Act
             wizard.Equip(validArmor);
@@ -118,12 +126,15 @@ namespace DungeonMaster.Tests
             Assert.Equal(validArmor, actuallArmor);
         }
 
-        [Fact]
-        public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException()
+        [Theory]
+        [InlineData(ArmorType.Leather)]
+        [InlineData(ArmorType.Mail)]
+        [InlineData(ArmorType.Plate)]
+        public void Equip_InvalidArmorType_ShouldThrowInvalidArmorException(ArmorType armorType)
         {
             //Arrange
             var wizard = new Wizard("name");
-            var invalidArmor = new Armor("FON", ArmorType.Mail, 1, Slot.Body, new HeroAttribute(1, 1, 2));
+            var invalidArmor = new Armor("FON", armorType, 1, Slot.Body, new HeroAttribute(1, 1, 2));
             string expectedMessage = "Can not equip this type of armor";
 
             //Act
