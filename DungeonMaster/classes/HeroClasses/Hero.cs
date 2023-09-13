@@ -57,6 +57,11 @@ public abstract class Hero
     /// <param name="weapon">Weapon you want to equip</param>
     public abstract void Equip(Weapon weapon);
 
+    public void RemoveEquipment(Slot slot)
+    {
+        Equipment[slot] = null;
+    }
+
     /// <summary>
     /// Calculates the total attributes by summing the attributes of the character's level
     /// and equipped armor items.
